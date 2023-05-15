@@ -26,11 +26,10 @@ descargar=async(url)=>{
   yt.convertAudio({
       url,
       itag: 140,
-      directoryDownload: __dirname+"/musica",
+      directoryDownload: __dirname,
       title: "Your title here"
   },(a)=>{console.log("On Data",a);},()=>{console.log("On Close");})
 }
-
 
 descargar('https://www.youtube.com/watch?v=GUf81ofAZV0&list=RDEMC8fzeVShZE57exsbYjFEsg&start_radio=1&rv=Q3mcZcJJu7k');
 
