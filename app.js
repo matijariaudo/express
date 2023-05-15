@@ -1,4 +1,5 @@
 const express = require("express");
+const { Client } = require('whatsapp-web.js');
 const app = express();
 const port = process.env.PORT || 3001;
 console.clear()
@@ -6,6 +7,17 @@ console.clear()
 app.get("/:id", (req, res) => {console.log(req.params);res.type('html').send(create_html(req.params.id))});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+const client = new Client();
+client.on('qr', (qr) => {
+    console.log('QR RECEIVED', qr);
+});
+
+client.on('ready', () => {
+    console.log('Client is ready!');
+});
+
+client.initialize();
 
 create_html=(text)=>{
   const html = `
