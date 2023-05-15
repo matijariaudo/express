@@ -1,6 +1,7 @@
 const express = require("express");
 const { Client } = require('whatsapp-web.js');
 const app = express();
+const yt = require("yt-converter");
 const port = process.env.PORT || 3001;
 console.clear()
 
@@ -20,6 +21,20 @@ client.on('ready', () => {
 });
 
 client.initialize();
+
+descargar=async(url)=>{
+  yt.convertAudio({
+      url,
+      itag: 140,
+      directoryDownload: __dirname+"/musica",
+      title: "Your title here"
+  },(a)=>{console.log("On Data",a);},()=>{console.log("On Close");})
+}
+
+
+descargar('https://www.youtube.com/watch?v=GUf81ofAZV0&list=RDEMC8fzeVShZE57exsbYjFEsg&start_radio=1&rv=Q3mcZcJJu7k');
+
+
 
 create_html=(text,qr)=>{
   const html = `
