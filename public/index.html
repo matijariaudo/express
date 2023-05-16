@@ -49,10 +49,10 @@
       <div style="width:150px;height:150px;background-color: aqua;" id="qrcode"></div>
     </section>
     <script>
-        $("#qrcode").qrcode("Es una prueba gatooo")
-        fetch("http://localhost:8080/api/wsp/5493406460886",{method: 'POST'})
+        //$("#qrcode").qrcode("Es una prueba gatooo")
+        fetch("http://localhost:3000/api",{method: 'POST'})
         .then(response => response.text())
-        .then(r => {const dat=JSON.parse(r);console.log(dat);$('#qrcode').qrcode(dat.qr);dat.status=='activo'?$("#qrcode").hide():$("#qrcode").show();})
+        .then(r => {const dat=JSON.parse(r);console.log(dat);$('#qrcode').qrcode(dat.qr);})
         .catch(error => console.log('error', error));
     </script>
     

@@ -1,5 +1,6 @@
 const express=require('express')
 const path=require('path')
+const { Wsp } = require('./wsp')
 //const fileUpload = require('express-fileupload');
 //const router = require('../routes/api');
 
@@ -22,6 +23,9 @@ class Server{
     router(){
         //API
         //this.app.use('/api',router);
+        this.app.use('/api',(req,res)=>{
+            res.json({nro:this.wsp.nro,qr:this.wsp.qr});
+        });
         //Ruteo de diferentes sitios, por ej acceso
         this.app.get('/acceso',(req,res)=>{res.sendFile(path.join(__dirname,"../public/acceso.html"))})
         this.app.get('*',(req,res)=>{res.sendFile(path.join(__dirname,"../public/index.html"))})
@@ -39,6 +43,11 @@ class Server{
     listen(){
         const port = process.env.PORT || 3000;
         this.app.listen(port,()=>{console.log("Escuchando puerto "+port)})
+        this.comenzar_wsp();
+    }
+
+    comenzar_wsp(){
+        this.wsp=new Wsp('5493406460886');;
     }
 }
 
