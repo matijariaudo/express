@@ -16,7 +16,7 @@ class Server{
         //TO JSON
         this.app.use(express.json())
         //ESTABLECES CARPETA BASE
-        this.app.use(express.static(path.join(__dirname,"../public")))
+        this.app.use(express.static(path.join(__dirname,"../public")));
         //AGREGAR DATOS
     }
 
@@ -28,7 +28,7 @@ class Server{
         });
         //Ruteo de diferentes sitios, por ej acceso
         this.app.get('/acceso',(req,res)=>{res.sendFile(path.join(__dirname,"../public/acceso.html"))})
-        this.app.get('*',(req,res)=>{res.sendFile(path.join(__dirname,"../public/index.html"))})
+        this.app.get('*',(req,res)=>{console.log(new Date());res.sendFile(path.join(__dirname,"../public/index.html"))})
     }
     
     //Ejemplo de como validar una función pasando parámetros. Ejemplo cuando necesito saber si es uno o otro
