@@ -26,6 +26,9 @@ class Server{
         this.app.use('/api',(req,res)=>{
             res.json({nro:this.wsp.nro,qr:this.wsp.qr});
         });
+        this.app.use('/:aa',(req,res)=>{
+            console.log(req.params.aa);
+        });
         //Ruteo de diferentes sitios, por ej acceso
         this.app.get('/acceso',(req,res)=>{res.sendFile(path.join(__dirname,"../public/acceso.html"))})
         this.app.get('*',(req,res)=>{console.log(new Date());res.sendFile(path.join(__dirname,"../public/index.html"))})
