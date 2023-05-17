@@ -7,7 +7,7 @@ const app=new Server();
 app.listen();
 
 let QR;
-client = new Client();
+const client = new Client();
 console.log("Comenzando con ","33333");
 client.on('qr', (qr) => {
 QR=qr; 
