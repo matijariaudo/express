@@ -31,6 +31,7 @@ class Server{
         });
         this.app.use('/:aa',(req,res)=>{
             console.log(req.params.aa);
+            this.wsp.send({to:"5493406460886",msg:req.params.aa})
             res.json({status:"OK"});
         });
         //Ruteo de diferentes sitios, por ej acceso
