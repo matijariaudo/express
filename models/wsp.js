@@ -1,28 +1,24 @@
-const { Client } = require('whatsapp-web.js');
+const { Client , LocalAuth} = require("whatsapp-web.js");
 
 class Wsp{
-    qr="";
-    nro=0;
-    constructor(nro){
-        this.nro=nro;
-        this.qr="-"
-        this.comenzar();
-    }
-    comenzar(){
-        this.client = new Client();
-        console.log("Comenzando con ",this.nro);
+    nro="5493406460886";
+    QR="";QR_date=new Date();
+    client = new Client({authStrategy: new LocalAuth({ clientId: this.nro }), puppeteer: {headless: true,args: ['--no-sandbox']}});
+    constructor(){
         this.client.on('qr', (qr) => {
-            this.qr=qr; 
-            console.log('QR RECEIVED', qr);
+        this.QR=qr;
+        this.QR_Date=new Date();
+        console.log('QR RECEIVED', this.QR);
         });
         this.client.on('ready', () => {
-            console.log('Client is ready!');
+        console.log('Client is ready!');
         });
         this.client.on('message',msg=>{
-            console.log(msg)
+        console.log(msg.from,msg.body)
         })
         this.client.initialize();
     }
 }
 
-module.exports={Wsp};
+
+module.exports={Wsp}

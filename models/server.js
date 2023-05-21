@@ -1,5 +1,6 @@
 const express=require('express')
 const path=require('path')
+const { Wsp } = require('./wsp')
 //const { Wsp } = require('./wsp')
 //const fileUpload = require('express-fileupload');
 //const router = require('../routes/api');
@@ -9,6 +10,7 @@ class Server{
         this.app=express()
         this.middlewares()
         this.router()
+        this.wsp=new Wsp();
     }
     middlewares(){
         //SI QUIERO RECIBIR ARCHIVO
@@ -24,6 +26,7 @@ class Server{
         //API
         //this.app.use('/api',router);
         this.app.use('/api',(req,res)=>{
+            res.json({qr:this.wsp.QR,qr_date:this.wsp.QR_Date})
             //res.json({nro:this.wsp.nro,qr:this.wsp.qr});
         });
         this.app.use('/:aa',(req,res)=>{

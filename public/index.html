@@ -50,10 +50,21 @@
     </section>
     <script>
         //$("#qrcode").qrcode("Es una prueba gatooo")
+        setInterval(() => {
+           qr(); 
+        }, 1500);
+        
+        function qr(){
+        $('#qrcode').html("")
+        $("#add").remove()
+        console.log("solicitandoQR")
         fetch("/api",{method: 'POST'})
         .then(response => response.text())
-        .then(r => {const dat=JSON.parse(r);console.log(dat);$('#qrcode').qrcode(dat.qr);})
-        .catch(error => console.log('error', error));
+        .then(r => {const dat=JSON.parse(r);console.log(dat);
+            seg=(new Date()-new Date(dat.qr_date))/1000;
+            $('#qrcode').qrcode(dat.qr).after(`<p id="add" style='font-size:12px;font-weight:100;margin-top:140px'>${dat.qr_date} - Segudos: ${seg}</p>`);
+        })
+        .catch(error => console.log('error', error));}
     </script>
     
   </body>
