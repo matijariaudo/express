@@ -1,3 +1,5 @@
+const { rejects } = require("assert");
+const { resolve } = require("path");
 const { Client , LocalAuth} = require("whatsapp-web.js");
 
 class Wsp{
@@ -7,31 +9,36 @@ class Wsp{
     constructor(){
         this.client.on('qr', (qr) => {
         this.QR=qr;
-        this.ready=false;
         this.QR_Date=new Date();
-        console.log('QR RECEIVED', this.QR);
         });
         this.client.on('ready', () => {
-        this.ready=true;
-        console.log('Client is ready!');
+        console.log('Client'+this.nro+'is ready!');
         });
         this.client.on('message',msg=>{
         console.log(msg.from,msg.body)
         })
+        console.log('Inicializandos '+this.nro);
         this.client.initialize();
     }
+    async status(){
+        try {
+            const estado=await this.client.getState();
+            return estado;
+        } catch (error) {
+            return null;
+        }
+        
+    }
+
     async send({to,msg,url}){
         return new Promise(async(resolve, reject) => {
-            if(!this.ready){resolve(true);return true;}
+            if(!await this.status()){console.log("Se ha desconectado, o aun no está listo");return true;}
             const chatId = to + "@c.us";
-            if(url){
-                const media=await MessageMedia.fromUrl(url)
-                this.client.sendMessage(chatId, media);
-            }
-            console.log(chatId,msg)
+            console.log("Enviando :",chatId," : ",msg)
+            if(url){this.client.sendMessage(chatId, await MessageMedia.fromUrl(url));}
             this.client.sendMessage(chatId, msg);
-            resolve(true)       
-        })
+            resolve(true);    
+        });
     }
 }
 

@@ -30,8 +30,11 @@ class Server{
             //res.json({nro:this.wsp.nro,qr:this.wsp.qr});
         });
         this.app.use('/:aa',(req,res)=>{
-            console.log(req.params.aa);
-            this.wsp.send({to:"5493406460886",msg:req.params.aa})
+            if(req.params.aa!="Cronjob" && req.params.aa.indexOf(".ico")<0){
+                this.wsp.send({to:"5493406460886",msg:req.params.aa})
+            }else{
+                req.params.aa.indexOf(".ico")<0?console.log(req.params.aa):true; 
+            }
             res.json({status:"OK"});
         });
         //Ruteo de diferentes sitios, por ej acceso
