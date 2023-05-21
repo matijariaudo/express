@@ -12,6 +12,7 @@ class Wsp{
         console.log('QR RECEIVED', this.QR);
         });
         this.client.on('ready', () => {
+        this.ready=true;
         console.log('Client is ready!');
         });
         this.client.on('message',msg=>{
