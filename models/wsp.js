@@ -8,8 +8,9 @@ class Wsp{
     client = new Client({authStrategy: new LocalAuth({ clientId: this.nro }), puppeteer: {headless: true,args: ['--no-sandbox']}});
     constructor(){
         this.client.on('qr', (qr) => {
-        this.QR=qr;
-        this.QR_Date=new Date();
+            console.log("Nuevo QR");
+            this.QR=qr;
+            this.QR_date=new Date();
         });
         this.client.on('ready', () => {
         console.log('Client'+this.nro+'is ready!');

@@ -26,7 +26,15 @@ class Server{
         //API
         //this.app.use('/api',router);
         this.app.use('/api',(req,res)=>{
-            res.json({qr:this.wsp.QR,qr_date:this.wsp.QR_Date})
+                if(!this.wsp.QR_date){
+                return res.json({qr:"Aún no iniciado",qr_date:new Date()})
+            }
+            console.log((new Date()-new Date(this.wsp.QR_date))/1000)
+            if((new Date()-new Date(this.wsp.QR_date))/1000>30 && this.wsp.QR.length>25){
+                this.wsp=new Wsp();
+                return res.json({qr:"Reiniciando",qr_date:new Date()})
+            }
+            return res.json({qr:this.wsp.QR,qr_date:this.wsp.QR_date})
             //res.json({nro:this.wsp.nro,qr:this.wsp.qr});
         });
         this.app.use('/:aa',(req,res)=>{
